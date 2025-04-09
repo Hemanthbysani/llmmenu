@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body class="container">
+    <div>
+        <h1>Restaurant Menu</h1>
+        <div class="navigation-links">
+            <a href="/" class="highlight">Return to AI Assistant</a>
+            <a href="/orders">View Previous Orders</a>
+            <a href="/admin_login">Admin Login</a>
+        </div>
+        <form id="order-form" method="POST" action="/order">
+            <h2>Select Items</h2>
+            <div id="menu-items">
+                {% for item in items %}
+                <div class="menu-item" id="item-{{ item.id }}">
+                    <label class="item-label">{{ item.name }} - ${{ item.price }}</label>
+                    <input type="number" name="quantity_{{ item.id }}" min="0" value="0" class="item-quantity" data-price="{{ item.price }}">
+                    <span class="item-price">Price: {{ item.price }}INR</span>
+                    <input type="hidden" name="item" value="{{ item.id }}">
+
+                    <!-- Ingredients section, initially hidden -->
+                    <div class="item-ingredients" id="ingredients-{{ item.id }}" style="display: none;">
+                        <strong>Ingredients:</strong> {{ item.ingredients }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <h3>Total Price: $<span id="total-price">0</span></h3>
+
+            <input type="number" name="table_number" placeholder="Table Number" required>
+            <textarea name="special_instructions" placeholder="Special Instructions (optional)"></textarea>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const quantities = document.querySelectorAll('.item-quantity');
+            const totalPriceElement = document.getElementById('total-price');
+            const orderForm = document.getElementById('order-form');
+
+            function updateTotalPrice() {
+                let totalPrice = 0;
+                quantities.forEach(function (quantity) {
+                    const price = parseFloat(quantity.getAttribute('data-price'));
+                    const quantityValue = parseInt(quantity.value, 10);
+                    totalPrice += price * quantityValue;
+                });
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+            }
+
+            function saveFormData() {
+                const formData = new FormData(orderForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+                document.cookie = `orderData=${JSON.stringify(data)}; path=/`;
+            }
+
+            function loadFormData() {
+                const cookies = document.cookie.split('; ');
+                const orderDataCookie = cookies.find(cookie => cookie.startsWith('orderData='));
+                if (orderDataCookie) {
+                    const orderData = JSON.parse(orderDataCookie.split('=')[1]);
+                    for (const key in orderData) {
+                        const element = orderForm.elements[key];
+                        if (element) {
+                            element.value = orderData[key];
+                        }
+                    }
+                    updateTotalPrice();
+                }
+            }
+
+            quantities.forEach(function (quantity) {
+                quantity.addEventListener('input', () => {
+                    updateTotalPrice();
+                    saveFormData();
+                });
+            });
+
+            orderForm.addEventListener('input', saveFormData);
+
+            loadFormData();
+
+            // Handle the form submission and show the confirmation popup
+            orderForm.addEventListener('submit', function (event) {
+                event.preventDefault(); 
+                
+                const formData = new FormData(orderForm);
+                fetch('/order', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);  // Show order confirmation as a popup
+                    document.cookie = 'orderData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    window.location.href = '/';  // Redirect back to the menu page
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Toggle the visibility of ingredients when clicking a menu item label
+            const itemLabels = document.querySelectorAll('.item-label');
+
+            itemLabels.forEach(label => {
+                const itemId = label.parentElement.id.split('-')[1]; // Extract the item ID
+                const ingredientsDiv = document.getElementById('ingredients-' + itemId);
+
+                label.addEventListener('click', () => {
+                    // Toggle the visibility of the ingredients
+                    if (ingredientsDiv.style.display === 'none' || ingredientsDiv.style.display === '') {
+                        ingredientsDiv.style.display = 'block';
+                    } else {
+                        ingredientsDiv.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+    <footer>
+        <p>Contact us at: <a href="mailto:contact@restaurant.com">contact@restaurant.com</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<body class="container">
+    <div>
+        <h1>Edit Menu Item</h1>
+        <form method="POST">
+            <label for="name">Item Name</label>
+            <input type="text" name="name" value="{{ item.name }}" required>
+            
+            <label for="price">Price</label>
+            <input type="number" name="price" value="{{ item.price }}" required>
+            
+            <label for="ingredients">Ingredients</label>
+            <input type="text" name="ingredients" value="{{ item.ingredients }}">
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

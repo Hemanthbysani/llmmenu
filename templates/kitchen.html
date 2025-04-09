@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body class="container">
+    <nav>
+        <a href="/admin">Go to Admin</a>
+    </nav>
+    <div>
+        <h1>Kitchen Orders</h1>
+        <form method="POST" action="/clear_orders">
+            <button type="submit">Clear All Orders</button>
+        </form>
+
+        <div id="orders-container">
+            {% for table_number, orders in grouped_orders.items() %}
+            <div class="order-table" id="table-{{ table_number }}">
+                <h2>Table {{ table_number }}</h2>
+                <ul>
+                    {% for order in orders %}
+                    {% if order.quantity > 0 %}
+                    <li class="order-item">
+                        <span class="item-name">{{ order.menu_item.name }}</span> ({{ order.quantity }}x)
+                        <span class="order-time">{{ order.order_time.strftime('%H:%M') }}</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <p>
+                    Special Instructions: 
+                    <em>{{ orders[0].special_instructions }}</em>
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 20px 0;
+}
+
+h2, h3 {
+    color: #444;
+}
+
+/* Form Styles */
+form {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea, button {
+    font-size: 1rem;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+input[type="number"]:focus, textarea:focus, button:focus {
+    outline: none;
+    border-color: #333;
+}
+
+/* Menu Page Styles */
+#menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.menu-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 10px);
+    transition: transform 0.3s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
+    margin-bottom: 5px; /* Reduced margin-bottom */
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-item label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444;
+}
+
+.item-quantity {
+    text-align: center;
+    font-size: 1rem;
+    width: 50px;
+    margin-left: 10px;
+}
+
+.item-price {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Checkout Total Price */
+#total-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    margin-top: 20px;
+}
+
+/* Kitchen Page Styles */
+#orders-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.order-table {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.order-table h2 {
+    text-align: center;
+    color: #333;
+}
+
+.order-item {
+    margin: 10px 0;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+form button {
+    background-color: #5a5a5a;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 8px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #949494;
+}
+
+/* Admin Page Styles */
+.admin-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Reduced margin-bottom */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.admin-item span {
+    font-weight: 500;
+    color: #444;
+    font-size: 1.1rem;
+}
+
+.admin-item button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-item button:hover {
+    background-color: #555;
+}
+
+body.admin-page {
+    background-color: #fff; /* Set background color to white for admin page */
+}
+
+/* Animations for adding/removing items */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.menu-item, .admin-item, li {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.menu-item.removed, .admin-item.removed, li.removed {
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+/* Minimalist Style for all Pages */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    overflow-y: auto;
+    max-height: 80vh;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.container > div {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #888; /* Changed to grey */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #aaa; /* Changed to a lighter grey */
+}
+
+/* Additional button styles to ensure no orange buttons */
+button:active {
+    background-color: #666; /* Darker grey for active state */
+}

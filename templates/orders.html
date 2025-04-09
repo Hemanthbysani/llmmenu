@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Orders</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="container">
+    <div>
+        <h1>Previous Orders</h1>
+        <a href="/">Back to Menu</a>
+        <div id="orders-container">
+            {% for table_number, orders in grouped_orders.items() %}
+            <div class="order-table">
+                <h2>Table {{ table_number }}</h2>
+                {% for order in orders %}
+                <div class="order-item">
+                    <p>Item: {{ order.menu_item.name }} ({{ order.quantity }}x)</p>
+                    <p>Order Time: {{ order.order_time.strftime('%H:%M') }}</p>
+                </div>
+                {% endfor %}
+                <p>Special Instructions: {{ orders[0].special_instructions }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

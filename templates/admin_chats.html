@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Chat History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin-page">
+    <nav>
+        <a href="/admin">Go to Menu Management</a>
+        <a href="/kitchen">Go to Kitchen</a>
+    </nav>
+    <h1>AI Chat History</h1>
+    <form method="POST" action="/admin_logout">
+        <button type="submit">Logout</button>
+    </form>
+
+    <div class="chat-history-container">
+        {% for chat in chats %}
+        <div class="chat-history-item {% if chat.resulted_in_order %}led-to-order{% endif %}">
+            <div class="chat-timestamp">{{ chat.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+            <div class="chat-user-message">
+                <strong>User:</strong> {{ chat.user_message }}
+            </div>
+            <div class="chat-bot-response">
+                <strong>Bot:</strong> {{ chat.bot_response }}
+            </div>
+            {% if chat.resulted_in_order %}
+            <div class="chat-order-badge">Resulted in Order</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        .chat-history-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .chat-history-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .chat-history-item.led-to-order {
+            border-left: 5px solid #28a745;
+        }
+        
+        .chat-timestamp {
+            color: #777;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .chat-user-message {
+            margin-bottom: 10px;
+        }
+        
+        .chat-bot-response {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .chat-order-badge {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</body>
+</html>
