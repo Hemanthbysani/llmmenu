@@ -11,8 +11,6 @@ import litellm
 from litellm.caching.caching import Cache
 from sqlalchemy import func  
 
-os.environ["GEMINI_API_KEY"] = "AIzaSyDGg3PSiFuHzrvPOjqtxiWtgfk-aX7mE0s"
-os.environ['GROQ_API_KEY'] = "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"
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
