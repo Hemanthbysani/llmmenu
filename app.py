@@ -279,12 +279,12 @@ Here's our current menu:
 The user is at table number: {table_number}
 
 When a user wants to place an order:
-1. Identify the items they want.
-2. Ask for the quantity for each item.
-3. Use the table number {table_number} that's already provided.
-4. If the user confirms the order, respond with "ORDER_CONFIRMED" followed by a JSON object only with the order details.
-5. Do not ask for confirmation again after the user has already confirmed.
-6. If the user provides special instructions, include them in the JSON object.
+1. Identify the items they want and ask for the quantity for each item.
+2. Use the table number {table_number} that's already provided.
+3. Once the user confirms the order, respond with "ORDER_CONFIRMED" followed by a JSON object only with the order details.
+4. Do not ask for confirmation again after the user has already confirmed the order.
+5. If the user provides special instructions, include them in the JSON object.
+6. After confirming the order, provide a final response indicating the order has been placed successfully and stop further order-taking unless the user explicitly starts a new order.
 
 If the user asks for their orders:
 1. Retrieve the orders placed for their table number.
@@ -338,7 +338,7 @@ ORDER_CONFIRMED
                 bot_response = f"I couldn't process your order. Please try again. Error: {str(e)}"
         
         # Add logic to handle queries about placed orders
-        if "What are my orders" in user_message or "orders placed" in user_message:
+        if "What are my orders" in user_message or "orders" in user_message:
             try:
                 # Retrieve orders for the current table number
                 orders = Order.query.filter_by(table_number=table_number).all()
