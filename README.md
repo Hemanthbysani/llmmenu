@@ -38,7 +38,7 @@ This project is a restaurant management system that integrates an AI-powered cha
    ```
 
 4. **Set Environment Variables**:
-   Update the `GEMINI_API_KEY` and `GROQ_API_KEY` in the `app.py` file with your API keys.
+   Update the `GEMINI_API_KEY` and `GROQ_API_KEY` in the `.env` file with your API keys.
 
 5. **Initialize the Database**:
    ```bash
