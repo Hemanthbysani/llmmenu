@@ -487,4 +487,4 @@ def create_tables():
 
 if __name__ == '__main__':
     create_tables()
-    app.run(host='192.168.68.100',debug=True, port=5002)
+    app.run(debug=True, port=5002)
