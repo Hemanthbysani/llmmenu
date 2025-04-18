@@ -50,7 +50,7 @@ This project is a restaurant management system that integrates an AI-powered cha
    ```bash
    python app.py
    ```
-   The app will be available at `http://192.168.68.100:5002`.
+   The app will be available at `http://localhost:5002`.
 
 ## Usage
 
